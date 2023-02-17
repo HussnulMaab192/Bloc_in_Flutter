@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phone_auth/cubits/auth_cubit/auth_cubit.dart';
+import 'package:phone_auth/cubits/auth_cubit/auth_state.dart';
 import 'package:phone_auth/phone_auth/verification_screen.dart';
 
 class SignIn extends StatefulWidget {
@@ -8,6 +11,8 @@ class SignIn extends StatefulWidget {
   @override
   State<SignIn> createState() => _SignInState();
 }
+
+TextEditingController phoneController = TextEditingController();
 
 class _SignInState extends State<SignIn> {
   @override
@@ -18,12 +23,13 @@ class _SignInState extends State<SignIn> {
       ),
       body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
             child: TextField(
+              controller: phoneController,
               maxLength: 10,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "Phone Number without Country Code and zero",
                   counterText: ""),
@@ -32,16 +38,34 @@ class _SignInState extends State<SignIn> {
           const SizedBox(
             height: 10,
           ),
-          CupertinoButton(
-            color: Colors.blue,
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => const Verification()));
+          BlocConsumer<AuthCubit, AuthState>(
+            listener: (context, state) {
+              if (state is AuthCodeSentState) {
+                Navigator.push(context, CupertinoPageRoute(
+                  builder: (context) {
+                    return const Verification();
+                  },
+                ));
+              } else if (state is AuthErrorState) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.message!)));
+              }
             },
-            child: const Text("Sign In"),
-          )
+            builder: (context, state) {
+              return state is AuthLoadingState
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : CupertinoButton(
+                      color: Colors.blue,
+                      onPressed: () {
+                        String myPhno = "+92${phoneController.text}";
+                        BlocProvider.of<AuthCubit>(context).sendOTP(myPhno);
+                      },
+                      child: const Text("Sign In"),
+                    );
+            },
+          ),
         ],
       ),
     );

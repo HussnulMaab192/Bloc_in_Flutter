@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phone_auth/Home/home.dart';
+import 'package:phone_auth/cubits/auth_cubit/auth_cubit.dart';
+import 'package:phone_auth/cubits/auth_cubit/auth_state.dart';
 
 class Verification extends StatefulWidget {
   const Verification({super.key});
@@ -8,6 +11,8 @@ class Verification extends StatefulWidget {
   @override
   State<Verification> createState() => _VerificationState();
 }
+
+TextEditingController otpController = TextEditingController();
 
 class _VerificationState extends State<Verification> {
   @override
@@ -18,12 +23,13 @@ class _VerificationState extends State<Verification> {
       ),
       body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
             child: TextField(
+              controller: otpController,
               maxLength: 10,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "6 digit OTP",
                   counterText: ""),
@@ -32,16 +38,34 @@ class _VerificationState extends State<Verification> {
           const SizedBox(
             height: 10,
           ),
-          CupertinoButton(
-            color: Colors.blue,
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => const Home(),
-                  ));
+          BlocConsumer<AuthCubit, AuthState>(
+            listener: (context, state) {
+              if (state is AuthLoggedInState) {
+                Navigator.popUntil(context, (route) => route.isFirst);
+                Navigator.pushReplacement(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => const Home(),
+                    ));
+              } else if (state is AuthErrorState) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.message!)));
+              }
             },
-            child: const Text("Verify"),
+            builder: (context, state) {
+              return state is AuthLoadingState
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : CupertinoButton(
+                      color: Colors.blue,
+                      onPressed: () {
+                        BlocProvider.of<AuthCubit>(context)
+                            .verifyOTP(otpController.text);
+                      },
+                      child: const Text("Verify"),
+                    );
+            },
           )
         ],
       ),

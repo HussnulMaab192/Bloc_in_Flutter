@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "900355520665",
+    "project_id": "phone-no-auth-with-cubits",
+    "storage_bucket": "phone-no-auth-with-cubits.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900355520665:android:e029b131969e6ef3cf6008",
+        "android_client_info": {
+          "package_name": "com.example.phone_auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900355520665-q5k9d13nphjmnr1erk7bhlr9b8uavlcn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlz5msx7oRy5c7ocjIPMDwgDQgOWakhXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900355520665-q5k9d13nphjmnr1erk7bhlr9b8uavlcn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
