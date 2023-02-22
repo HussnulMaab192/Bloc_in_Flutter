@@ -10,7 +10,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
-  var myListOfCat = {
+  Map myListOfCat = {
     "kayaking.png": "KayaKing",
     "snorkling.png": "snorkling",
     "balloning.png": "balloning",
@@ -44,7 +44,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         children: [
           //ROW/
           Container(
-            margin: const EdgeInsets.only(top: 60, left: 20, right: 20),
+            margin: const EdgeInsets.only(top: 50, left: 20, right: 20),
             child: Row(
               children: [
                 const Icon(
@@ -66,7 +66,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ),
           ),
           const SizedBox(
-            height: 40,
+            height: 20,
           ),
           Align(
             alignment: Alignment.topLeft,
@@ -77,7 +77,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ),
           ),
           const SizedBox(
-            height: 40,
+            height: 30,
           ),
           Align(
             alignment: Alignment.centerLeft,
@@ -107,7 +107,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           ),
           // Explore More
           Container(
-            margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
             child: Row(
               children: [
                 const SimpleText(
@@ -117,9 +117,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               ],
             ),
           ),
-
           // Categories
-
           Container(
             margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
             width: double.maxFinite,
@@ -132,13 +130,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   children: List.generate(
                       myListOfCat.length,
                       (index) => Container(
-                            margin: EdgeInsets.only(left: 20, right: 20),
+                            margin: const EdgeInsets.only(left: 20, right: 20),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  height: 50,
-                                  width: 50,
+                                  height: 80,
+                                  width: 80,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20)),
                                   child: Image(
@@ -147,12 +145,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                           "img/${myListOfCat.keys.elementAt(index)}")),
                                 ),
                                 const SizedBox(
-                                  height: 5,
+                                  height: 10,
                                 ),
                                 SimpleText(
                                     text: myListOfCat.values.elementAt(index),
                                     color: Colors.black,
-                                    size: 13),
+                                    size: 15),
                               ],
                             ),
                           )),
@@ -172,9 +170,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       itemCount: emotions.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) => Container(
-        margin: const EdgeInsets.only(left: 5, top: 10, right: 10),
-        height: 300,
-        width: 200,
+        margin: const EdgeInsets.only(left: 7, top: 10, right: 10),
+        height: 280,
+        width: 180,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           image: DecorationImage(
