@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
+import 'package:travel_app/misc/colors.dart';
+import 'package:travel_app/pages/widgets/button.dart';
 import 'package:travel_app/pages/widgets/large_text.dart';
 import 'package:travel_app/pages/widgets/simple_text.dart';
 
@@ -35,34 +37,62 @@ class _WelcomePageState extends State<WelcomePage> {
               ),
             ),
           ),
-          child: Row(
-            children: [
-              Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 20, top: 130, right: 20),
-                    child: Column(
-                      children: const [
-                        LargeText(text: "Trips", color: Colors.black, size: 25),
-                        SimpleText(
-                            text: "Mountain", color: Colors.grey, size: 18),
-                        SimpleText(
-                            text:
-                                "Hi Here is the Simple Text. This Text is just\n displaying and showing simple Layout",
-                            color: Colors.grey,
-                            size: 13),
-                        SimpleText(
-                            text:
-                                "Texts which is just to be display the sample of\n texts and some thing which looks a bit great ",
-                            color: Colors.grey,
-                            size: 13),
-                      ],
+          child: Container(
+            margin: const EdgeInsets.only(top: 150, left: 20, right: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const LargeText(
+                        text: "Trips", color: Colors.black, size: 30),
+                    const SizedBox(
+                      height: 10,
                     ),
-                  )
-                ],
-              ),
-              Column()
-            ],
+                    const SimpleText(
+                        text: "Mountain", color: Colors.black87, size: 20),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      width: 250,
+                      child: SimpleText(
+                        text:
+                            "Mountain Hikes Gives you an Incredible Sence of Freedom along with endurance test",
+                        color: AppColors.textColor2,
+                        size: 15,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: const ResponsiveButton(
+                        width: 100,
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: List.generate(
+                    3,
+                    (indexOfDots) => Container(
+                      margin: const EdgeInsets.only(bottom: 2),
+                      height: index == indexOfDots ? 35 : 16,
+                      width: 8,
+                      decoration: BoxDecoration(
+                        color: index == indexOfDots
+                            ? AppColors.mainColor
+                            : Colors.grey,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
