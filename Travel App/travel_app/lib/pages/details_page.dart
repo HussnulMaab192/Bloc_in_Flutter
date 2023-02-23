@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:travel_app/misc/colors.dart';
+import 'package:travel_app/pages/discover_nav_pages/main_page.dart';
+import 'package:travel_app/pages/widgets/button.dart';
 import 'package:travel_app/pages/widgets/large_text.dart';
 import 'package:travel_app/pages/widgets/simple_text.dart';
 
@@ -10,6 +14,9 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+  int selectedIndex = 0;
+  int gottenStars = 4;
+  bool tappedOnHeart = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +25,7 @@ class _DetailsPageState extends State<DetailsPage> {
             left: 0,
             right: 0,
             child: Container(
-              height: 350,
+              height: 350.h,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("img/mountain.jpeg"),
@@ -26,22 +33,22 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
               ),
             )),
-        const Positioned(
-          left: 20,
-          top: 40,
+        Positioned(
+          left: 20.w,
+          top: 40.w,
           child: Icon(
             Icons.menu,
             color: Colors.white,
-            size: 30,
+            size: 30.sp,
           ),
         ),
         Positioned(
-          left: 0,
-          right: 0,
-          top: 300,
+          left: 0.w,
+          right: 0.w,
+          top: 240.h,
           // Below Container
           child: Container(
-            height: 500,
+            height: 600.h,
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -51,98 +58,237 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
             child: Column(
               children: [
-                const SizedBox(
-                  height: 50,
+                SizedBox(
+                  height: 30.h,
                 ),
                 // 250 dollar (Row)
                 Container(
-                  margin: const EdgeInsets.only(left: 20, right: 10),
+                  margin: EdgeInsets.only(left: 20.w, right: 10.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       LargeText(
-                          text: "Yousimite", color: Colors.black, size: 25),
-                      SimpleText(text: "250 \$", color: Colors.black, size: 19),
+                          text: "Yousimite",
+                          color: AppColors.mainColor,
+                          size: 25.sp),
+                      SimpleText(
+                          text: "\$ 250",
+                          color: AppColors.mainTextColor,
+                          size: 23.sp),
                     ],
                   ),
                 ),
 
                 // Location
                 Container(
-                  margin: const EdgeInsets.only(top: 10, left: 20, right: 10),
+                  margin: EdgeInsets.only(top: 10.h, left: 20.w, right: 10.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Icon(
+                    children: [
+                      const Icon(
                         Icons.location_on,
                         color: Colors.grey,
                       ),
                       SizedBox(
-                        width: 5,
-                      ),
-                      SimpleText(text: "USA", color: Colors.black, size: 15),
-                      SizedBox(
-                        width: 5,
+                        width: 5.w,
                       ),
                       SimpleText(
-                          text: "Calenairio", color: Colors.black, size: 15),
+                          text: "USA",
+                          color: AppColors.mainTextColor,
+                          size: 15.sp),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      SimpleText(
+                          text: "Calenairio",
+                          color: AppColors.mainTextColor,
+                          size: 15.sp),
                     ],
                   ),
                 ),
 
                 //Stares
                 Container(
-                  margin: const EdgeInsets.only(top: 10, left: 20, right: 10),
+                  margin: EdgeInsets.only(top: 10.h, left: 20.w, right: 10.w),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
                           children: List.generate(
-                            4,
-                            (index) => const Icon(
+                            5,
+                            (index) => Icon(
                               Icons.star,
-                              color: Colors.yellow,
+                              color: index < gottenStars
+                                  ? AppColors.starColor
+                                  : AppColors.textColor2,
                             ),
                           ),
                         ),
-                        const Icon(
-                          Icons.star_border,
-                          color: Colors.black54,
+                        SizedBox(
+                          width: 20.w,
                         ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        const SimpleText(
-                            text: "(4.0)", color: Colors.black54, size: 15)
+                        SimpleText(
+                            text: "(4.0)", color: Colors.black54, size: 15.sp)
                       ]),
                 ),
-                const SizedBox(
-                  height: 40,
+                SizedBox(
+                  height: 20.h,
                 ),
+                // People
                 Container(
-                  margin: const EdgeInsets.only(left: 20),
-                  child: const Align(
+                  margin: EdgeInsets.only(left: 20.w),
+                  child: Align(
                       alignment: Alignment.topLeft,
                       child: LargeText(
-                          text: "People", color: Colors.black, size: 25)),
+                          text: "People",
+                          color: AppColors.mainColor,
+                          size: 25.sp)),
                 ),
                 SizedBox(
-                  height: 7,
+                  height: 7.h,
                 ),
+                // Number of people in your Group
                 Container(
-                  margin: const EdgeInsets.only(left: 20),
-                  child: const Align(
+                  margin: EdgeInsets.only(left: 20.w),
+                  child: Align(
                       alignment: Alignment.topLeft,
                       child: SimpleText(
                           text: "Number of people in your group",
-                          color: Colors.grey,
-                          size: 16)),
+                          color: AppColors.mainTextColor,
+                          size: 19.sp)),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                // boxes 1,2,3,4,5
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: List.generate(
+                      5,
+                      (index) => InkWell(
+                            onTap: (() {
+                              setState(() {
+                                selectedIndex = index;
+                              });
+                            }),
+                            child: AppButton(
+                              selectedIndex: selectedIndex,
+                              index: index,
+                              isIcon: false,
+                            ),
+                          )),
+                ),
+                // Description Text
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                    margin: EdgeInsets.only(left: 20.w, top: 20.h),
+                    child: LargeText(
+                        text: "Description",
+                        color: AppColors.mainColor,
+                        size: 20),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                      margin:
+                          EdgeInsets.only(left: 20.w, top: 10.h, right: 10.w),
+                      child: SimpleText(
+                          text:
+                              "You must go for Traveling .Traveling helps get rid of Pressure.Go To the Mountain to see the nature",
+                          color: AppColors.mainTextColor,
+                          size: 20.sp)),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          tappedOnHeart = !tappedOnHeart;
+                        });
+                      },
+                      child: AppButton(
+                        isIcon: true,
+                        iconData: Icons.favorite_border,
+                        tappedOnHeart: !tappedOnHeart,
+                      ),
+                    ),
+                    Expanded(child: Container()),
+                    InkWell(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return const MainPage();
+                            },
+                          ));
+                        },
+                        child: ResponsiveButton(width: 220.w)),
+                    SizedBox(
+                      width: 30.w,
+                    )
+                  ],
                 ),
               ],
             ),
           ),
         ),
       ]),
+    );
+  }
+}
+
+class AppButton extends StatelessWidget {
+  AppButton({
+    Key? key,
+    this.selectedIndex,
+    this.index,
+    this.isIcon,
+    this.iconData,
+    this.tappedOnHeart,
+  }) : super(key: key);
+
+  int? selectedIndex;
+  int? index;
+  IconData? iconData;
+  bool? tappedOnHeart;
+  bool? isIcon = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(left: 15),
+      height: 50.h,
+      width: 55.w,
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColors.mainColor, width: 1),
+        color: selectedIndex != null && selectedIndex == index ||
+                tappedOnHeart == true
+            ? AppColors.mainColor
+            : AppColors.buttonBackground,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+          child: isIcon == true
+              ? Icon(iconData,
+                  color: tappedOnHeart == true
+                      ? Colors.white
+                      : AppColors.mainColor)
+              : Text(
+                  "${index! + 1}",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: selectedIndex == index
+                          ? Colors.white
+                          : AppColors.mainColor,
+                      fontSize: 22.sp),
+                )),
     );
   }
 }
