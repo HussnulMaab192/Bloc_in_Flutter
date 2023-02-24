@@ -34,6 +34,7 @@ class _AppCubitLogicsState extends State<AppCubitLogics> {
           if (state is DetailsState) {
             return const DetailsPage();
           }
+
           if (state is ErrorState) {
             return Scaffold(
               body: Center(child: Text(state.errorMessage)),

@@ -26,8 +26,11 @@ class Loadedstate extends AppStates {
 }
 
 class DetailsState extends AppStates {
+  final AppModel place;
+
+  DetailsState(this.place);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [place];
 }
 
 class ErrorState extends AppStates {

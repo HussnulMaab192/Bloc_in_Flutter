@@ -105,40 +105,25 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         ]),
                   ),
                   // Tab Views // Pictures of Collections
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return const DetailsPage();
-                        },
-                      ));
-                    },
-                    child: SizedBox(
-                      height: 300.h,
-                      width: double.maxFinite,
-                      child: TabBarView(controller: tabController, children: [
-                        ListView.builder(
-                          itemCount: info.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => Container(
+                  SizedBox(
+                    height: 300.h,
+                    width: double.maxFinite,
+                    child: TabBarView(controller: tabController, children: [
+                      ListView.builder(
+                        itemCount: info.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => InkWell(
+                          onTap: () {
+                            BlocProvider.of<AppCubit>(context)
+                                .getDetails(info[index]);
+                          },
+                          child: Container(
                             margin: EdgeInsets.only(
                                 left: 7.w, top: 10.h, right: 10.w),
                             height: 280.h,
                             width: 180.w,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(25),
-                              // child: CachedNetworkImage(
-                              //     placeholder: (context, url) {
-                              //       return Center(
-                              //         child: Image.asset(
-                              //           "img/loading.gif",
-                              //           fit: BoxFit.cover,
-                              //         ),
-                              //       );
-                              //     },
-                              //     imageUrl:
-                              //         "http://mark.bslmeiyu.com/uploads/${info[index].img!}")
-
                               child: FadeInImage(
                                 fit: BoxFit.cover,
                                 placeholder: const Image(
@@ -151,16 +136,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             ),
                           ),
                         ),
+                      ),
 
-                        // customBuilder(
-                        //     length: places.length, collection: places),
-                        customBuilder(
-                            length: inspirations.length,
-                            collection: inspirations),
-                        customBuilder(
-                            length: emotions.length, collection: emotions),
-                      ]),
-                    ),
+                      // customBuilder(
+                      //     length: places.length, collection: places),
+                      customBuilder(
+                          length: inspirations.length,
+                          collection: inspirations),
+                      customBuilder(
+                          length: emotions.length, collection: emotions),
+                    ]),
                   ),
                   // Explore More
                   Container(
