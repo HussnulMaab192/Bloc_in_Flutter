@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:travel_app/cubits/app_cubit.dart';
 import 'package:travel_app/misc/colors.dart';
 import 'package:travel_app/pages/discover_nav_pages/main_page.dart';
 import 'package:travel_app/pages/widgets/button.dart';
@@ -69,12 +72,8 @@ class _WelcomePageState extends State<WelcomePage> {
                       height: 40.h,
                     ),
                     InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MainPage()),
-                        );
+                      onTap: () async {
+                        BlocProvider.of<AppCubit>(context).getData();
                       },
                       child: ResponsiveButton(
                         width: 100.w,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_app/pages/discover_nav_pages/home.dart';
 import 'package:travel_app/pages/discover_nav_pages/my_page.dart';
 import 'package:travel_app/pages/discover_nav_pages/search_page.dart';
